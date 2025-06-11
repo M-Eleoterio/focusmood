@@ -24,7 +24,7 @@ export const NotesCard = () => {
     if (debouncedNotes !== notes) {
       setNotes(debouncedNotes);
     }
-  }, [debouncedNotes, setNotes]);
+  }, [debouncedNotes, setNotes, notes]);
 
   useEffect(() => {
     setCurrentNotes(notes);
