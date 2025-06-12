@@ -34,7 +34,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   return (
     <div
       ref={dragContainerRef}
-      className="inset-0 flex items-center justify-center absolute w-11/12 h-screen"
+      className="inset-0 flex items-center justify-center absolute w-11/12 h-screen pointer-events-none"
     >
       <motion.div
         drag
@@ -42,6 +42,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
         dragListener={false}
         dragConstraints={dragContainerRef}
         dragMomentum={false}
+        className="pointer-events-auto"
       >
         <Card className="w-[400px] min-h-[400px]">
           <CardHeader

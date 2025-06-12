@@ -29,7 +29,7 @@ export const Timer = () => {
       interval = setInterval(() => {
         decrementTimeLeft();
       }, 1000);
-    } else if (isTimerRunning && timeLeft === 0) {
+    } else if (isTimerRunning && timeLeft <= 0) {
       toggleTimerPause();
     }
 
