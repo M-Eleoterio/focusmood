@@ -1,5 +1,8 @@
 "use client";
+
 import { X } from "lucide-react";
+import { useNotesStore } from "@/stores/notesStore";
+import { useUIStore } from "@/stores/uiStore";
 import {
   Card,
   CardContent,
@@ -8,47 +11,53 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Textarea } from "../ui/textarea";
-import { useUIStore } from "@/stores/uiStore";
-import { useNotesStore } from "@/stores/notesStore";
-import { useEffect, useState } from "react";
-import { useDebounce } from "@/hooks/useDebounce";
+import { motion, useDragControls } from "framer-motion";
+import { useRef } from "react";
 
 export const NotesCard = () => {
   const { notes, setNotes } = useNotesStore();
-  const [currentNotes, setCurrentNotes] = useState<string>(notes);
-
   const { isNotepadOpen, toggleNotepad } = useUIStore();
-  const debouncedNotes = useDebounce(currentNotes, 1000);
+  const dragControls = useDragControls();
 
-  useEffect(() => {
-    if (debouncedNotes !== notes) {
-      setNotes(debouncedNotes);
-    }
-  }, [debouncedNotes, setNotes, notes]);
+  const dragContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setCurrentNotes(notes);
-  }, [notes]);
-
-  if (!isNotepadOpen) return null;
+  if (!isNotepadOpen) {
+    return null;
+  }
 
   return (
-    <Card className="w-[400px] h-[600px]">
-      <CardHeader>
-        <div className="flex w-full justify-between">
-          <CardTitle>Notes</CardTitle>
-          <X className="cursor-pointer" onClick={toggleNotepad} />
-        </div>
-        <CardDescription>Take and save your notes</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Textarea
-          value={currentNotes}
-          onChange={(e) => setCurrentNotes(e.target.value)}
-          placeholder="Type your notes here..."
-          className="h-[300px] resize-none"
-        />
-      </CardContent>
-    </Card>
+    <div
+      ref={dragContainerRef}
+      className="inset-0 border flex items-center justify-center absolute w-11/12 h-screen"
+    >
+      <motion.div
+        drag
+        dragControls={dragControls}
+        dragListener={false}
+        dragConstraints={dragContainerRef}
+        dragMomentum={false}
+      >
+        <Card className="w-[400px] min-h-[400px]">
+          <CardHeader
+            onPointerDown={(e) => dragControls.start(e)}
+            className="cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex w-full justify-between">
+              <CardTitle>Notes</CardTitle>
+              <X className="cursor-pointer" onClick={toggleNotepad} />
+            </div>
+            <CardDescription>Take and save your notes</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Type your notes here..."
+              className="h-[300px]"
+            />
+          </CardContent>
+        </Card>
+      </motion.div>
+    </div>
   );
 };
