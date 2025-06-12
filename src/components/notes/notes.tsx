@@ -28,7 +28,7 @@ export const NotesCard = () => {
   return (
     <div
       ref={dragContainerRef}
-      className="inset-0 border flex items-center justify-center absolute w-11/12 h-screen"
+      className="inset-0 flex items-center justify-center absolute w-11/12 h-screen"
     >
       <motion.div
         drag
