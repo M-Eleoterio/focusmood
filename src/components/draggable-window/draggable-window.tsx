@@ -44,7 +44,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
         dragMomentum={false}
         className="pointer-events-auto"
       >
-        <Card className="w-[400px] min-h-[400px]">
+        <Card className="min-w-[400px] min-h-[400px]">
           <CardHeader
             onPointerDown={(e) => dragControls.start(e)}
             className="cursor-grab active:cursor-grabbing"

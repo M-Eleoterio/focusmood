@@ -1,3 +1,4 @@
+import { Kanban } from "@/components/kanban/kanban";
 import { Notes } from "@/components/windows/notes/notes";
 import { Timer } from "@/components/windows/timer/timer";
 
@@ -6,6 +7,7 @@ export default function Home() {
     <div className="size-full relative">
       <Notes />
       <Timer />
+      <Kanban />
     </div>
   );
 }
