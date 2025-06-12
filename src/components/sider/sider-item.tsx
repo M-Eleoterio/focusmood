@@ -2,6 +2,7 @@ import { Button } from "../ui/button";
 
 interface SiderItemProps {
   icon: React.ReactNode;
+  isOpen: boolean;
   onClick?: () => void;
 }
 
@@ -10,7 +11,7 @@ export const SiderItem: React.FC<SiderItemProps> = (props) => {
     <Button
       className="cursor-pointer"
       onClick={props.onClick}
-      variant="outline"
+      variant={props.isOpen ? "secondary" : "outline"}
       size="icon"
     >
       {props.icon}
