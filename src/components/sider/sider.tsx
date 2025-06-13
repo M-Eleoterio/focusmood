@@ -11,6 +11,8 @@ export const Sider = () => {
     toggleNotepad,
     toggleTimer,
     toggleKanban,
+    isMusicOpen,
+    toggleMusic,
   } = useUIStore();
 
   return (
@@ -26,7 +28,7 @@ export const Sider = () => {
         icon={<Kanban />}
         onClick={toggleKanban}
       />
-      <SiderItem isOpen={false} icon={<Music />} />
+      <SiderItem isOpen={isMusicOpen} icon={<Music />} onClick={toggleMusic} />
     </div>
   );
 };

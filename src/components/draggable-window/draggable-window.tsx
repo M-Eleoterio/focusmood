@@ -16,6 +16,7 @@ interface DraggableWindowProps {
   isOpen: boolean;
   children: React.ReactNode;
   description: string;
+  hideOnClose?: boolean;
   toggleIsOpen: () => void;
 }
 
@@ -24,17 +25,22 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
   isOpen,
   children,
   description,
+  hideOnClose = false,
   toggleIsOpen,
 }) => {
   const dragControls = useDragControls();
   const dragContainerRef = useRef<HTMLDivElement>(null);
 
-  if (!isOpen) return null;
+  const minimized = hideOnClose && !isOpen;
+
+  if (!isOpen && !hideOnClose) return null;
 
   return (
     <div
       ref={dragContainerRef}
-      className="inset-0 flex items-center justify-center absolute w-11/12 h-screen pointer-events-none"
+      className={`inset-0 flex ${
+        minimized ? "hidden" : ""
+      } items-center justify-center absolute w-11/12 h-screen pointer-events-none`}
     >
       <motion.div
         drag

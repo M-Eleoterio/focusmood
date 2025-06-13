@@ -1,5 +1,5 @@
 import { Trash } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
 import { KanbanTask, useKanbanStore } from "@/stores/kanbanStore";
 import { useDraggable } from "@dnd-kit/core";
 
